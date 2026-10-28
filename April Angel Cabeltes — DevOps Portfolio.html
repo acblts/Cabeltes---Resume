@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>April Angel Cabeltes — DevOps Engineer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --slate: #1A2D42;
+    --panel: #162233;
+    --cyan: #00C8FF;
+    --cyan-dim: rgba(0,200,255,0.12);
+    --cyan-border: rgba(0,200,255,0.25);
+    --white: #E8EDF2;
+    --muted: #5A7A90;
+    --subtle: #2A3D52;
+    --green: #00E5A0;
+    --amber: #FFB830;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRID LINES BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--cyan-border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-brand span { color: var(--muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-left {}
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--cyan);
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  h1 .line-cyan { color: var(--cyan); }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 44ch;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0.65rem 1.4rem;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .btn-primary:hover { background: #33d4ff; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cyan);
+    border: 1px solid var(--cyan-border);
+  }
+
+  .btn-outline:hover { border-color: var(--cyan); background: var(--cyan-dim); }
+
+  /* TERMINAL CARD */
+  .terminal {
+    background: var(--panel);
+    border: 1px solid var(--subtle);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+  }
+
+  .terminal-bar {
+    background: var(--subtle);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red { background: #FF5F57; }
+  .dot-yellow { background: #FFBD2E; }
+  .dot-green { background: #28CA42; }
+
+  .terminal-title {
+    margin-left: 0.5rem;
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+
+  .terminal-body { padding: 1.5rem; line-height: 1.9; }
+
+  .t-prompt { color: var(--cyan); }
+  .t-cmd { color: var(--white); }
+  .t-key { color: var(--amber); }
+  .t-val { color: var(--green); }
+  .t-comment { color: var(--muted); }
+  .t-section { color: #a78bfa; }
+
+  /* SECTION LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--subtle);
+  }
+
+  /* SKILLS STACK */
+  #skills { background: var(--panel); border-top: 1px solid var(--subtle); border-bottom: 1px solid var(--subtle); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-layer {
+    border: 1px solid var(--subtle);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .skill-layer-header {
+    padding: 0.8rem 1.2rem;
+    background: var(--subtle);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .layer-icon {
+    font-size: 1rem;
+  }
+
+  .layer-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .skill-tags {
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    background: var(--cyan-dim);
+    color: var(--cyan);
+    border: 1px solid var(--cyan-border);
+    letter-spacing: 0.03em;
+  }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--cyan), var(--subtle));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+  }
+
+  .timeline-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-company {
+    font-size: 0.9rem;
+    color: var(--cyan);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-bullets li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .timeline-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-size: 0.7rem;
+    top: 3px;
+  }
+
+  /* CERTS */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    border: 1px solid var(--subtle);
+    border-radius: 6px;
+    padding: 1.2rem;
+    background: var(--panel);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .cert-card:hover { border-color: var(--cyan-border); }
+
+  .cert-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  /* CONTACT */
+  #contact { background: var(--panel); border-top: 1px solid var(--subtle); }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+
+  .contact-label { color: var(--muted); min-width: 60px; }
+  .contact-val { color: var(--white); }
+  .contact-val a { color: var(--cyan); text-decoration: none; }
+  .contact-val a:hover { text-decoration: underline; }
+
+  .contact-right h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .contact-right p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    max-width: 40ch;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    border-top: 1px solid var(--subtle);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* STATUS BADGE */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.3);
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><span>~/</span>cabeltes<span>.dev</span></div>
+  <ul class="nav-links">
+    <li><a href="#skills">stack</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        open to opportunities
+      </div>
+      <div class="hero-tag">DevOps Engineer</div>
+      <h1>April Angel<br><span class="line-cyan">Cabeltes</span></h1>
+      <p class="hero-desc">
+        Building resilient infrastructure, automating deployments, and keeping systems running — from cloud environments to on-prem pipelines.
+      </p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn btn-primary">view experience</a>
+        <a href="#contact" class="btn btn-outline">get in touch</a>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+        <span class="terminal-title">engineer.yaml</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-section">profile:</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">name:</span> <span class="t-val">"April Angel Cabeltes"</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">role:</span> <span class="t-val">"DevOps Engineer"</span></div>
+        <div>&nbsp;&nbsp;<span class="t-key">location:</span> <span class="t-val">"Gingoog City, PH"</span></div>
+        <br>
+        <div><span class="t-section">cloud:</span></div>
+        <div>&nbsp;&nbsp;- <span class="t-val">AWS</span> <span class="t-comment"># EC2, ECR, S3, Route53</span></div>
+        <div>&nbsp;&nbsp;- <span class="t-val">GCP</span> <span class="t-comment"># Compute, IAM, Logging</span></div>
+        <br>
+        <div><span class="t-section">cicd:</span></div>
+        <div>&nbsp;&nbsp;- <span class="t-val">GitLab CI</span></div>
+        <div>&nbsp;&nbsp;- <span class="t-val">GitHub Actions</span></div>
+        <div>&nbsp;&nbsp;- <span class="t-val">Jenkins</span></div>
+        <br>
+        <div><span class="t-section">status:</span> <span class="t-val">available: true</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">// 01</span>
+      <h2>Tech Stack</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-layer">
+        <div class="skill-layer-header">
+          <span class="layer-icon">☁️</span>
+          <span class="layer-name">Cloud & Infrastructure</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">AWS EC2</span>
+          <span class="tag">AWS S3</span>
+          <span class="tag">AWS ECR</span>
+          <span class="tag">Route 53</span>
+          <span class="tag">GCP Compute</span>
+          <span class="tag">GCP IAM</span>
+          <span class="tag">GCP Logging</span>
+          <span class="tag">Proxmox</span>
+        </div>
+      </div>
+
+      <div class="skill-layer">
+        <div class="skill-layer-header">
+          <span class="layer-icon">🔄</span>
+          <span class="layer-name">CI/CD & DevOps</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">GitLab CI</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Infisical</span>
+          <span class="tag">Ansible</span>
+        </div>
+      </div>
+
+      <div class="skill-layer">
+        <div class="skill-layer-header">
+          <span class="layer-icon">📊</span>
+          <span class="layer-name">Monitoring & Observability</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">Prometheus</span>
+          <span class="tag">Grafana</span>
+          <span class="tag">Zabbix</span>
+          <span class="tag">MS Teams Alerts</span>
+        </div>
+      </div>
+
+      <div class="skill-layer">
+        <div class="skill-layer-header">
+          <span class="layer-icon">🌐</span>
+          <span class="layer-name">Web & App Servers</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">Nginx</span>
+          <span class="tag">Apache HTTP</span>
+          <span class="tag">Tomcat</span>
+          <span class="tag">HAProxy</span>
+        </div>
+      </div>
+
+      <div class="skill-layer">
+        <div class="skill-layer-header">
+          <span class="layer-icon">🗄️</span>
+          <span class="layer-name">Databases & Streaming</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Apache Kafka</span>
+          <span class="tag">NAS Mounting</span>
+        </div>
+      </div>
+
+      <div class="skill-layer">
+        <div class="skill-layer-header">
+          <span class="layer-icon">🔒</span>
+          <span class="layer-name">Networking & Security</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">TCP/IP</span>
+          <span class="tag">DNS</span>
+          <span class="tag">SSL/TLS</span>
+          <span class="tag">Firewall Config</span>
+          <span class="tag">Let's Encrypt</span>
+          <span class="tag">LAN Setup</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">// 02</span>
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-meta">NOV 2025 — APR 2026</div>
+        <div class="timeline-role">DevOps Engineer</div>
+        <div class="timeline-company">CyTech Development and Operations, Inc.</div>
+        <ul class="timeline-bullets">
+          <li>Managed Ubuntu Linux servers including installation, configuration, and maintenance of core services.</li>
+          <li>Built and maintained Docker images using custom Dockerfiles; managed full container lifecycle via Docker CLI.</li>
+          <li>Integrated Docker into CI/CD pipelines with GitLab CI and Jenkins, enabling automated build and deployment workflows.</li>
+          <li>Managed servers via Proxmox and AWS EC2, ensuring optimal performance and availability.</li>
+          <li>Monitored system health using Prometheus and Grafana dashboards with real-time alerting to Microsoft Teams.</li>
+          <li>Designed and implemented an MSSP environment with client whitelisting and access control.</li>
+          <li>Managed environment variables securely using Infisical; wrote Ansible playbooks for automated installations.</li>
+          <li>Maintained Kafka and MongoDB environments; developed scripts to automate client onboarding and DB user management.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">APR 2024 — MAY 2025</div>
+        <div class="timeline-role">DevOps Engineer</div>
+        <div class="timeline-company">Apollotech Software Corporation</div>
+        <ul class="timeline-bullets">
+          <li>Managed Windows & Linux servers, VMs on Proxmox, and network infrastructure setup.</li>
+          <li>Installed and configured web servers including Apache, Nginx, Tomcat, and HAProxy.</li>
+          <li>Built CI/CD pipelines using GitHub Actions for staging and production environments.</li>
+          <li>Administered GCP Compute Engine: SSH access, reboots, and configuration management.</li>
+          <li>Ran SQL queries for internal checks across MySQL and PostgreSQL databases.</li>
+          <li>Handled SSL certificate renewals via Let's Encrypt and managed basic firewall rules.</li>
+          <li>Participated in daily Scrum ceremonies and resolved live production issues.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background: var(--panel); border-top: 1px solid var(--subtle); border-bottom: 1px solid var(--subtle);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">// 03</span>
+      <h2>Education & Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div style="margin-bottom: 2.5rem;">
+      <div class="timeline-meta" style="margin-bottom: 0.3rem;">2019 — 2023</div>
+      <div class="timeline-role" style="margin-bottom: 0.2rem;">BS in Information Technology</div>
+      <div class="timeline-company">Christ the King College</div>
+    </div>
+
+    <div style="margin-bottom: 3rem;">
+      <div class="timeline-meta" style="margin-bottom: 0.3rem;">2023 — 2024</div>
+      <div class="timeline-role" style="margin-bottom: 0.2rem;">NC II — Computer Systems Servicing</div>
+      <div class="timeline-company">TESDA</div>
+    </div>
+
+    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 500; color: var(--muted); margin-bottom: 1.2rem; letter-spacing: 0.02em;">Certifications & Seminars</h3>
+    <div class="cert-grid">
+      <div class="cert-card"><span class="cert-icon">🏅</span><span class="cert-name">TOPCIT — Test of Practical Competency in IT</span></div>
+      <div class="cert-card"><span class="cert-icon">📜</span><span class="cert-name">TESDA CSS (Computer System Servicing) NC II</span></div>
+      <div class="cert-card"><span class="cert-icon">🐳</span><span class="cert-name">Container Basics</span></div>
+      <div class="cert-card"><span class="cert-icon">📄</span><span class="cert-name">YAML Basics</span></div>
+      <div class="cert-card"><span class="cert-icon">☸️</span><span class="cert-name">K3s Basics</span></div>
+      <div class="cert-card"><span class="cert-icon">🎬</span><span class="cert-name">Video Editing Workshop</span></div>
+      <div class="cert-card"><span class="cert-icon">🔧</span><span class="cert-name">Hardware Assembly & Troubleshooting Workshop</span></div>
+      <div class="cert-card"><span class="cert-icon">✅</span><span class="cert-name">OJT Certification</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">// 04</span>
+      <h2>Contact</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="contact-row">
+          <span class="contact-label">email</span>
+          <span class="contact-val"><a href="mailto:cabeltesaprilangel27@gmail.com">cabeltesaprilangel27@gmail.com</a></span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">phone</span>
+          <span class="contact-val">0921 573 6879</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">location</span>
+          <span class="contact-val">Gingoog City, Misamis Oriental, PH</span>
+        </div>
+        <div class="contact-row" style="margin-top: 0.5rem;">
+          <span class="contact-label">status</span>
+          <span class="status-badge" style="margin-bottom: 0;"><span class="status-dot"></span>open to work</span>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <h3>Let's build something solid.</h3>
+        <p>Looking for a DevOps role where I can contribute to infrastructure reliability, CI/CD automation, and cloud operations. Open to remote and hybrid opportunities.</p>
+        <a href="mailto:cabeltesaprilangel27@gmail.com" class="btn btn-primary">send a message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>built with intention · april angel cabeltes · 2026</span>
+</footer>
+
+</body>
+</html>

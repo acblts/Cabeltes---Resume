@@ -6,7 +6,7 @@ const path = require('path');
 const server = http.createServer((req, res) => {
   
   // Load your HTML file
-  const filePath = path.join(__dirname, 'April Angel Cabeltes — DevOps Portfolio.html');
+  const filePath = path.join(__dirname, 'index.html');
   
   fs.readFile(filePath, (err, data) => {
     if (err) {
